@@ -1,158 +1,39 @@
-# Projeto CP03 - Gerenciamento de Pacientes
+# Projeto Sprint 04 - OdontoPrev
 
-## Video: https://www.youtube.com/watch?v=tukYhAb0dA0
+## Descrição do Projeto
 
-## Integrantes do Grupo
+Este projeto é uma aplicação Java desenvolvida para o gerenciamento de informações odontológicas, incluindo cadastros de pacientes, tratamentos e integração com mensageria RabbitMQ para comunicação assíncrona entre serviços. A aplicação utiliza Spring Boot como framework principal e contempla funcionalidades REST para CRUD (Create, Read, Update, Delete) das entidades do sistema.
 
-*Nicola Monte Cravo Garofalo - responsável pelo código fonte.*
+O foco principal é permitir a manipulação e consulta dos dados odontológicos de forma eficiente, garantindo comunicação desacoplada via RabbitMQ para processos assíncronos, além de contar com internacionalização e outras funcionalidades.
 
-*Igor Akira Bortolini Tateishi - responsável pelo código fonte.*
+---
 
-*Willyam Santos Sousa - responsável pelo documento.*
+## Pré-requisitos
 
-## Requisitos do Software
- 
-- Instalação do Java 17;
- 
-## Instruções de como rodar a aplicação
- 
-1. Clonar o projeto;
-2. Baixar as dependências do Groovy;
-3. Rodar o projeto;
-4. Executar as requisições.
+Antes de rodar o projeto, certifique-se de que você tem instalado e configurado os seguintes itens:
 
-## Descrição:
+- *Java JDK 17+* (compatível com o projeto)
+- *Maven 3.6+* para build e gerenciamento de dependências
+- *RabbitMQ* (servidor de mensageria) instalado e rodando localmente
+- *MongoDB* (caso o projeto utilize banco NoSQL, verificar no código)
+- *IDE* de sua preferência (IntelliJ IDEA, Eclipse, VSCode, etc.)
 
-Este projeto é uma aplicação Java desenvolvida com Spring Boot, utilizando JPA para persistência de dados, destinada ao gerenciamento de informações de pacientes, incluindo médicos. 
+---
 
-## Estrutura das Entidades
+## Como rodar o projeto localmente
 
-### 1. Paciente
-- Representa o paciente, contendo informações pessoais como:
-  - id: Identificador único do paciente.
-  - nome: Nome do paciente.
-  - email: Email válido do paciente.
-  - telefone: Telefone do paciente.
-  - dataNascimento: Data de nascimento do paciente.
+1. Clone este repositório ou extraia o ZIP do projeto.
 
-### 2. Medico
-- Representa o médico responsável pelo paciente.
-  - id: Identificador único do médico.
-  - nome: Nome do médico.
-  - telefone: Telefone do médico (máx. 15 caracteres).
-  - email: Email válido do médico.
-  - crm: Número do CRM, com tamanho entre 5 e 15 caracteres.
+2. Certifique-se de que o RabbitMQ está instalado e em execução localmente.
 
-## Tecnologias Utilizadas
+   - Para iniciar o RabbitMQ manualmente:
+     - Windows: usar o serviço RabbitMQ instalado ou rodar via linha de comando se configurado.
+     - Linux/Mac: rodar rabbitmq-server no terminal.
+   - O RabbitMQ padrão roda na porta 5672.
 
-- *Java 17*
-- *Spring Boot*
-- *Jakarta Persistence API (JPA)*
-- *Banco de Dados Relacional ORACLE *
+3. Configure as variáveis de ambiente ou arquivo application.properties / application.yml com as credenciais do RabbitMQ, MongoDB e outras configurações necessárias.
 
-## Diagrama:
-![java](https://github.com/user-attachments/assets/60264022-3a21-435c-8b27-997127e997cf)
+4. No terminal, dentro da pasta do projeto, execute o comando Maven para buildar e rodar a aplicação:
 
-# Sistema de Gerenciamento de Médicos e Pacientes
-
-## Teste
-
-### Médicos
-
-#### 1. Criar um novo médico (POST)
-- **URL:** `http://localhost:8080/medicos/salvar`
-- **Método:** POST
-- **Headers:** Content-Type: application/json
-- **Body (JSON):**
-```json
-{
-  "nome": "Dr. João Silva",
-  "email": "joao.silva@example.com",
-  "crm": "123456",
-  "telefone": "11999998888"
-}
-```
-
-#### 2. Listar todos os médicos (GET)
-- **URL:** `http://localhost:8080/medicos`
-- **Método:** GET
-
-#### 3. Buscar médico por ID (GET)
-- **URL:** `http://localhost:8080/medicos/{id}`
-- **Exemplo:** `http://localhost:8080/medicos/1`
-- **Método:** GET
-
-#### 4. Atualizar médico (PUT)
-- **URL:** `http://localhost:8080/medicos/editar/{id}`
-- **Exemplo:** `http://localhost:8080/medicos/editar/1`
-- **Método:** PUT
-- **Headers:** Content-Type: application/json
-- **Body (JSON):**
-```json
-{
-  "id": 1,
-  "nome": "Dr. João Silva Modificado",
-  "email": "joao.novo@example.com",
-  "crm": "654321",
-  "telefone": "11988887777"
-}
-```
-
-#### 5. Excluir médico (DELETE)
-- **URL:** `http://localhost:8080/medicos/excluir/{id}`
-- **Exemplo:** `http://localhost:8080/medicos/excluir/1`
-- **Método:** DELETE
-
-### Pacientes
-
-#### 1. Criar um novo paciente (POST)
-- **URL:** `http://localhost:8080/pacientes/salvar`
-- **Método:** POST
-- **Headers:** Content-Type: application/json
-- **Body (JSON):**
-```json
-{
-  "nome": "Maria Souza",
-  "email": "maria.souza@example.com",
-  "telefone": "11997776666",
-  "dataDeNascimento": "1990-05-20"
-}
-```
-
-#### 2. Listar todos os pacientes (GET)
-- **URL:** `http://localhost:8080/pacientes`
-- **Método:** GET
-
-#### 3. Buscar paciente por ID (GET)
-- **URL:** `http://localhost:8080/pacientes/{id}`
-- **Exemplo:** `http://localhost:8080/pacientes/1`
-- **Método:** GET
-
-#### 4. Atualizar paciente (PUT)
-- **URL:** `http://localhost:8080/pacientes/editar/{id}`
-- **Exemplo:** `http://localhost:8080/pacientes/editar/1`
-- **Método:** PUT
-- **Headers:** Content-Type: application/json
-- **Body (JSON):**
-```json
-{
-  "id": 1,
-  "nome": "Maria Souza Modificada",
-  "email": "maria.nova@example.com",
-  "telefone": "11996665555",
-  "dataDeNascimento": "1990-05-20"
-}
-```
-
-#### 5. Excluir paciente (DELETE)
-- **URL:** `http://localhost:8080/pacientes/excluir/{id}`
-- **Exemplo:** `http://localhost:8080/pacientes/excluir/1`
-- **Método:** DELETE
-   
-
-
-## Instalação e Configuração
-
-1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/JavaSprint02/.git
+   mvn clean spring-boot:run
