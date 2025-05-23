@@ -1,5 +1,10 @@
 # Projeto Sprint 04 - OdontoPrev
 
+#Integrantes
+Igor Oviedo RM553434
+Cauã Ferrigolli RM553093
+Thiago Carrillo RM553565
+
 ## Descrição do Projeto
 
 Este projeto é uma aplicação Java desenvolvida para o gerenciamento de informações odontológicas, incluindo cadastros de pacientes, tratamentos e integração com mensageria RabbitMQ para comunicação assíncrona entre serviços. A aplicação utiliza Spring Boot como framework principal e contempla funcionalidades REST para CRUD (Create, Read, Update, Delete) das entidades do sistema.
